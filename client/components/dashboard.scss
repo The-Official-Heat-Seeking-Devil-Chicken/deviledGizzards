@@ -1,0 +1,15 @@
+.dashboard {
+  width: 95vw;
+  height: 95vh;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-areas:
+    'header header header header '
+    'left main main right'
+    'left main main right'
+    'left main main right'
+    'left main main right'
+    'left main main right'
+    'left main main right';
+  grid-gap: 10px;
+}

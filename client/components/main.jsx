@@ -1,11 +1,13 @@
 import React from 'react';
-import Card from './card';
+import Card from './Card';
 
 const Main = (props) => {
-  const { posts } = props;
-  console.log(posts);
-
-  return <div className='main'>{cardsArr}</div>;
+  return (
+    <article className='main'>
+      <Card />
+      {/* {cardsArr} */}
+    </article>
+  );
 };
 
 export default Main;
