@@ -24,4 +24,20 @@ const UserController = {
         next(res.status(400).json({ error: 'error in creating user' }));
       });
   },
+  getUser(req, res, next) {
+    const { name } = req.params;
+    User.findOne({ firstName: name })
+      .then((user) => {
+        // if doc is found
+        if (user) {
+          res.locals.user = user;
+          return next();
+        } else {
+          return res.status(400).json({ error: 'user not found' });
+        }
+      })
+      .catch((err) => {
+        return res.status(400).json({ error: 'failed to fetch user' });
+      });
+  },
 };
