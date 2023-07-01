@@ -24,9 +24,10 @@ const UserController = {
         next(res.status(400).json({ error: 'error in creating user' }));
       });
   },
+  // get method for fetching user based off of username
   getUser(req, res, next) {
-    const { name } = req.params;
-    User.findOne({ firstName: name })
+    const { username } = req.params;
+    User.findOne({ username: name })
       .then((user) => {
         // if doc is found
         if (user) {
@@ -41,3 +42,5 @@ const UserController = {
       });
   },
 };
+
+module.exports = UserController;
