@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
+  console.log('--entering post method for route--');
   return res.status(200).json(res.locals.newUser);
 });
 
