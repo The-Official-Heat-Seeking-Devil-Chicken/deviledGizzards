@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
+import './card.scss';
 
 const Card = (props) => {
   //   const { picUrl, category, description, likeCount, location, locationName } =

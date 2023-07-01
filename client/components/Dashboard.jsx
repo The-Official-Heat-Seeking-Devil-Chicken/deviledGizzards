@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Main from './main';
-import 
+import './dashboard.scss';
 
 function Dashboard() {
   return (

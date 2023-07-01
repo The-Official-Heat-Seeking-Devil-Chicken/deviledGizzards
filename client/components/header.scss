@@ -1,0 +1,52 @@
+@import 'app';
+.header {
+  grid-area: header;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: $primary-500;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  h3 {
+    color: $white;
+  }
+}
+
+.account-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-pic-plain-color {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $grey-600;
+}
+
+.account-name-container {
+  //   height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-name {
+  margin: 0;
+  color: $white;
+}
+
+.input-header {
+  width: 30rem;
+  height: 2rem;
+  padding: 0.7rem 1remrem;
+  border-radius: $borderRadius;
+  background: $backgroundColor;
+  border: 1px solid $grey-200;
+}

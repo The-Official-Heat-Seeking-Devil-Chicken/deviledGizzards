@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import './header.scss';
 
 const Header = () => {
   return (
     <>
       <main className='header'>
         {/* left corner logo  */}
-        <h3 className='logo-form'>LocalGems</h3>
+        <h3 className='logo-form'>MeWantFood</h3>
         <div className='nav-btn-container'>
           <input
             name='preference'
             type='text'
             placeholder='How Hungry You Wanna Be?'
-            className='form-input'
+            className='input-header'
           />
         </div>
         <div className='account-container'>
