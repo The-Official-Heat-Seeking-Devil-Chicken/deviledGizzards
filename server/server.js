@@ -34,6 +34,12 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
+// post method for user to db
+app.post('/signup', userController.createUser, (req, res) => {
+  console.log('--entering post method for route--');
+  return res.status(200).json(res.locals.newUser);
+});
+
 // app.use('/dashboard', routenamevar);
 
 // Serve index.html for all routes
