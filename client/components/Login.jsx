@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
-  const [formValue, setFormValue] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const handleSubmit = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
-          name='summoner'
-          type='text'
-          placeholder='username'
-          value={formValue}
+          name="username"
+          type="text"
+          placeholder="Enter Username Here"
+          value={username}
           onChange={(event) => setFormValue(event.target.value)}
         />
-        <input id='formButton' type='submit' value='Submit' />
+        <input
+          name="password"
+          type="text"
+          placeholder="Enter Password Here"
+          value={password}
+          onChange={(event) => setFormValue(event.target.value)}
+        />
+        <input id="formButton" type="submit" value="Submit" />
       </form>
     </div>
   );
