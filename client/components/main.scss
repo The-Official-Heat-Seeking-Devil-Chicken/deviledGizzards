@@ -1,0 +1,11 @@
+@import 'app';
+.main {
+  grid-area: main;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  background-color: $secondary-500;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  border-radius: 0.5rem;
+}
