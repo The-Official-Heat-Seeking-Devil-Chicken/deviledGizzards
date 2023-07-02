@@ -23,8 +23,13 @@ const UserController = {
         return next();
       })
       .catch((error) => {
-        return next(res.status(400).json({ error: 'error in creating user' }));
-      });
+        return next({
+          log: "error in update student",
+          status: 500,
+          message: "Student name cannot be updated",
+        });
+      }
+      )
   },
   // get method for fetching user based off of username
   getUser(req, res, next) {
