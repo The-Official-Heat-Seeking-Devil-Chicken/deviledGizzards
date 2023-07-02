@@ -6,16 +6,19 @@ function Login() {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
-  // const URL = 'http://localhost:3000/signup';
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const URL = "/api/";
+
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
 
     fetch(URL, {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +32,6 @@ function Login() {
         res.json();
       })
       .then((data) => {
-        console.log("HELLLOOO WORLD");
         console.log(data);
       });
   };
