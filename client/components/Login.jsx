@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./login.scss";
 
 function Login() {
   //direct you anywhere as long as you have specified that path before
@@ -17,43 +18,43 @@ function Login() {
       method: "POST",
       mode: "cors",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: username,
-        password: password
+        password: password,
+      }),
+    })
+      .then((res) => {
+        res.json();
       })
-    })
-    .then((res)=>{
-      res.json();
-    })
-    .then((data)=>{
-      console.log("HELLLOOO WORLD");
-      console.log(data);
-    })
-    
+      .then((data) => {
+        console.log("HELLLOOO WORLD");
+        console.log(data);
+      });
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
+    <div className="login-background">
+      <form onSubmit={handleSubmit} className="login-form">
+        <p className="title">ME WANT FOOD</p>
+        <input className='login-input'
           name="username"
           type="text"
-          placeholder="Enter Username Here"
+          placeholder="Username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         />
-        <input
+        <input className='login-input'
           name="password"
-          type="text"
-          placeholder="Enter Password Here"
+          type="password"
+          placeholder="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <input id="formButton" type="submit" value="Submit" />
+        <button>Login</button>
+        <a href="/signup">SIGN UP</a>
       </form>
-      <a href="/signup">SIGN UP</a>
     </div>
   );
 }
