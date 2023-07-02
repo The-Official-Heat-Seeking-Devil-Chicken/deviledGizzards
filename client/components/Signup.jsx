@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./signup.scss";
 
@@ -8,16 +8,30 @@ function Signup() {
 
   const URL = "http://localhost:3000/signup";
 
+
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const zipcodeRef = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    const firstName = formData.get("firstname");
-    const lastName = formData.get("lastname");
-    const username = formData.get("username");
-    const password = formData.get("password");
-    const zipcode = formData.get("zipcode");
+    // const firstName = formData.get("firstname");
+    // const lastName = formData.get("lastname");
+    // const username = formData.get("username");
+    // const password = formData.get("password");
+    // const zipcode = formData.get("zipcode");
+
+
+    const firstName = firstNameRef.current.value;
+    const lastName = lastNameRef.current.value;
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
+    const zipcode = zipcodeRef.current.value;
 
     fetch(URL, {
       method: "POST",
@@ -26,8 +40,8 @@ function Signup() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstname: firstName,
-        lastname: lastName,
+        first_name: firstName,
+        last_name: lastName,
         username: username,
         password: password,
         zipcode: zipcode,
@@ -38,7 +52,12 @@ function Signup() {
       })
       .then((data) => {
         console.log(data);
+        navigate('/');
+      })
+      .catch(error =>{
+        console.error('invalid setup');
       });
+      
 
   };
   
@@ -64,30 +83,35 @@ function Signup() {
       </svg>
       <form className="signup-form" onSubmit={handleSubmit}>
         <input
+          ref={firstNameRef}
           className="signup-input"
           name="firstname"
           type="text"
           placeholder="Enter First Name Here"
         />
         <input
+        ref={lastNameRef}
           className="signup-input"
           name="lastname"
           type="text"
           placeholder="Enter Last Name Here"
         />
         <input
+        ref={usernameRef}
           className="signup-input"
           name="username"
           type="text"
           placeholder="Enter Username Here"
         />
         <input
+        ref={passwordRef}
           className="signup-input"
           name="password"
           type="password"
           placeholder="Enter Password Here"
         />
         <input
+        ref={zipcodeRef}
           className="signup-input"
           name="zipcode"
           type="text"
