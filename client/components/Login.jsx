@@ -12,7 +12,7 @@ function Login() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className=''>
         <input
           name='summoner'
           type='text'
