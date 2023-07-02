@@ -6,7 +6,7 @@ function Signup() {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
-  const URL = "http://localhost:3000/signup";
+  const URL = "/api/signup";
 
 
   const firstNameRef = useRef(null);

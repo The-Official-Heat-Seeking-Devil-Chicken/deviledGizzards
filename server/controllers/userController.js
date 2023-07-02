@@ -24,9 +24,9 @@ const UserController = {
       })
       .catch((error) => {
         return next({
-          log: "error in update student",
+          log: "error in createUser",
           status: 500,
-          message: "Student name cannot be updated",
+          message: "User  cannot be created",
         });
       }
       )
