@@ -5,9 +5,11 @@ function Signup() {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
-  const URL = '/api/signup';
+  const URL = 'http://localhost:3000/signup';
 
   const handleSubmit = (e) => {
+
+    e.preventDefault();
 
     const formData = new FormData();
 
@@ -38,6 +40,7 @@ function Signup() {
       .then((data)=>{
         console.log(data);
       })
+      
   };
 
 
