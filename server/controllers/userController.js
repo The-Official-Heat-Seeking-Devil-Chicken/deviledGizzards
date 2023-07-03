@@ -36,7 +36,7 @@ const UserController = {
   // get method for fetching user based off of username
   getUser(req, res, next) {
     const { username } = req.params;
-    User.findOne({ username: name })
+    User.findOne({ username: username })
       .then((user) => {
         // if doc is found
         if (user) {

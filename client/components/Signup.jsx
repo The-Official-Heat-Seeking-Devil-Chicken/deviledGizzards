@@ -18,19 +18,20 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const firstName = firstNameRef.current ? firstNameRef.current.value : '';
-    const lastName = lastNameRef.current ? lastNameRef.current.value : '';
-    const username = usernameRef.current ? usernameRef.current.value : '';
-    const password = passwordRef.current ? passwordRef.current.value : '';
-    const zipcode = zipcodeRef.current ? zipcodeRef.current.value : '';
+    // const formData = new FormData();
 
-  const formData = {
-    first_name: firstName,
-    last_name: lastName,
-    username: username,
-    password: password,
-    zipcode: zipcode,
-  };
+    // const firstName = formData.get("firstname");
+    // const lastName = formData.get("lastname");
+    // const username = formData.get("username");
+    // const password = formData.get("password");
+    // const zipcode = formData.get("zipcode");
+
+
+    const firstName = firstNameRef.current.value;
+    const lastName = lastNameRef.current.value;
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
+    const zipcode = zipcodeRef.current.value;
 
     fetch(URL, {
       method: "POST",
@@ -38,10 +39,16 @@ function Signup() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        username: username,
+        password: password,
+        zipcode: zipcode,
+      }),
     })
       .then((res) => {
-        res.json();
+        return res.json();
       })
       .then((data) => {
         console.log("this is data:", data);

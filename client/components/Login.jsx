@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.scss';
 
@@ -7,10 +7,10 @@ function Login() {
   const navigate = useNavigate();
 
 
-  const URL = "/api/login";
+  const URL = "http://localhost:3000/";
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,12 +29,15 @@ function Login() {
       }),
     })
       .then((res) => {
-        res.json();
+        console.log("This is res:", res);
+        return res.json();
       })
       .then((data) => {
+        console.log("This is inside the then data")
         navigate('/home')
       }).
       catch(err =>{
+
         console.log("Need to doublecheck username/password")
       });
   };
@@ -44,20 +47,18 @@ function Login() {
       <form onSubmit={handleSubmit} className='login-form'>
         <p className='title'>ME WANT FOOD</p>
         <input
+          ref={usernameRef}
           className='login-input'
           name='username'
           type='text'
           placeholder='Username'
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
         />
         <input
+          ref={passwordRef}
           className='login-input'
           name='password'
           type='password'
           placeholder='Password'
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
         />
         <button>Login</button>
         <a href='/signup'>SIGN UP</a>
