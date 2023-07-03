@@ -60,6 +60,10 @@ app.post('/signup', userController.createUser, (req, res) => {
   return res.status(200).json(res.locals.newUser);
 });
 
+app.post('/login', userController.getUser, (req, res) => {
+  // upon successful sign up
+  return res.status(200).json(res.locals.user);
+});
 // app.use('/dashboard', routenamevar);
 
 // Serve index.html for all routes
