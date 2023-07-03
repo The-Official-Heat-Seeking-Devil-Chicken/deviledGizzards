@@ -1,10 +1,13 @@
 @import 'app';
 
 .card {
-  width: fit-content;
-  height: fit-content;
+  width: 400px;
+  // height: fit-content;
+  height: 350px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
   border: 1px solid rgba(128, 128, 128, 0.123);
   box-shadow: $shadow-3;
@@ -12,13 +15,26 @@
   padding: 1rem;
   background-color: $primary-500;
   border-radius: 0.5rem;
-  //   border: 2px solid red;
 }
 
+.img-container {
+  width: 350px;
+  height: 200px;
+
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+}
 .posted-img {
-  width: 400px;
+  // border: 2px solid red;
+  // height: auto;
+  // object-fit: contain;
+  max-width: 100%;
   height: auto;
+  // display: none;
   border-radius: 2px;
+  object-fit: cover;
+  border-radius: 0.5rem;
 }
 
 .card-details {
