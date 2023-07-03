@@ -7,7 +7,7 @@ function Login() {
   const navigate = useNavigate();
 
 
-  const URL = "/api/";
+  const URL = "/api/login";
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +18,7 @@ function Login() {
     const password = passwordRef.current.value;
 
     fetch(URL, {
-      method: 'POST',
+      method: 'GET',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
@@ -32,8 +32,10 @@ function Login() {
         res.json();
       })
       .then((data) => {
-        console.log('HELLLOOO WORLD');
-        console.log(data);
+        navigate('/home')
+      }).
+      catch(err =>{
+        console.log("Need to doublecheck username/password")
       });
   };
 

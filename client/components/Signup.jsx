@@ -6,7 +6,7 @@ function Signup() {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
-  const URL = "/api/signup";
+  const URL = "http://localhost:3000/signup";
 
 
   const firstNameRef = useRef(null);
@@ -18,20 +18,19 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const formData = new FormData();
+    const firstName = firstNameRef.current ? firstNameRef.current.value : '';
+    const lastName = lastNameRef.current ? lastNameRef.current.value : '';
+    const username = usernameRef.current ? usernameRef.current.value : '';
+    const password = passwordRef.current ? passwordRef.current.value : '';
+    const zipcode = zipcodeRef.current ? zipcodeRef.current.value : '';
 
-    // const firstName = formData.get("firstname");
-    // const lastName = formData.get("lastname");
-    // const username = formData.get("username");
-    // const password = formData.get("password");
-    // const zipcode = formData.get("zipcode");
-
-
-    const firstName = firstNameRef.current.value;
-    const lastName = lastNameRef.current.value;
-    const username = usernameRef.current.value;
-    const password = passwordRef.current.value;
-    const zipcode = zipcodeRef.current.value;
+  const formData = {
+    first_name: firstName,
+    last_name: lastName,
+    username: username,
+    password: password,
+    zipcode: zipcode,
+  };
 
     fetch(URL, {
       method: "POST",
@@ -39,19 +38,13 @@ function Signup() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-        username: username,
-        password: password,
-        zipcode: zipcode,
-      }),
+      body: JSON.stringify(formData),
     })
       .then((res) => {
         res.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log("this is data:", data);
         navigate('/');
       })
       .catch(error =>{
