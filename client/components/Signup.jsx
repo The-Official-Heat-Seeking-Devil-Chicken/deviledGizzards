@@ -48,10 +48,10 @@ function Signup() {
       }),
     })
       .then((res) => {
-        res.json();
+        return res.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log("this is data:", data);
         navigate('/');
       })
       .catch(error =>{

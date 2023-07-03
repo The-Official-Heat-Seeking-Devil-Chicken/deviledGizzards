@@ -24,9 +24,10 @@ mongoose
   .catch((err) => console.log(err));
 
 // handle parsing request body
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+
 
 // allows us to store the cookie on our backend
 // app.use(cookieParser());
