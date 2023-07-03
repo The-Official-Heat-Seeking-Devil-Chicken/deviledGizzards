@@ -23,7 +23,13 @@ const UserController = {
         return next();
       })
       .catch((error) => {
-        return next(res.status(400).json({ error: 'error in creating user' }));
+        return next({
+          log: 'error in creating user',
+          status: 500,
+          message: {
+            err: 'an error occured in createUser controller middleware',
+          },
+        });
       });
   },
   // get method for fetching user based off of username
