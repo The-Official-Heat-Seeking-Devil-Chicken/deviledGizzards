@@ -1,3 +1,6 @@
+const axios = require('axios');
+const yelpController = {};
+
 const fetchInfo = {};
 
 const BEARER_TOKEN2 =
@@ -24,4 +27,20 @@ fetchInfo.config = {
   },
 };
 
-module.exports = fetchInfo;
+yelpController.getData = (req, res, next) => {
+  axios
+    .get('https://api.yelp.com/v3/businesses/search', fetchInfo.config)
+    .then((response) => {
+      res.locals.rawData = response.data;
+      return next();
+    })
+    .catch((error) => {
+      //   console.log(err);
+      return next({
+        log: `Express error handler caught unknown middleware error: ERROR : ${error}`,
+        status: err.status || 400,
+      });
+    });
+};
+
+module.exports = yelpController;

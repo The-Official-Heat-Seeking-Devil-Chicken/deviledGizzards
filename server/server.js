@@ -38,20 +38,10 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
+//YELP API REQUEST
 // get request for yelp.
-// no controller used
-// configuration files for the api are in ./client/api.js file
-
-app.get('/yelp', (req, res) => {
-  axios
-    .get('https://api.yelp.com/v3/businesses/search', fetchInfo.config)
-    .then((response) => {
-      res.status(200).json(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+const yelpRouter = require('./routes/yelp');
+app.use('/yelp', yelpRouter);
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
