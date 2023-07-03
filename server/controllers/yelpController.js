@@ -6,6 +6,9 @@ const fetchInfo = {};
 const BEARER_TOKEN2 =
   'CuFmwamx8ZGyAJq4-jmFkFSEo-yld8-BzkNXX8qLVHn5NTv9LUrq2lB13q5LhS9hKBdDGrB2Xcogn6e1PPR1s51YazYpOE9re3-PrcKv6us-stSyvzNhW1tVLWufZHYx';
 
+const BEARER_TOKEN3 =
+  '3fL-Z1zOIZnAWPYAVo462Sbf4R9ODxQ0CQXTW2KXAFRQeLuHyX38jrBGDIeplBuy04evgJvqVMj3zUhR1mFN2WzaxnyVRwvwboqceelX108pa3gL2jFOoyTXnj-fZHYx';
+
 // dummy zipCode
 const location = 20912;
 
@@ -14,7 +17,7 @@ const location = 20912;
 // you can also change the term to another one to get any business
 fetchInfo.config = {
   headers: {
-    Authorization: `Bearer ${BEARER_TOKEN2}`,
+    Authorization: `Bearer ${BEARER_TOKEN3}`,
     Origin: 'localhost',
     withCredentials: true,
   },
@@ -38,9 +41,14 @@ yelpController.getData = (req, res, next) => {
       //   console.log(err);
       return next({
         log: `Express error handler caught unknown middleware error: ERROR : ${error}`,
-        status: err.status || 400,
+        status: error.status || 400,
       });
     });
+};
+
+yelpController.searchData = (req, res, next) => {
+  console.log('entered search controller');
+  console.log(req.body);
 };
 
 module.exports = yelpController;

@@ -43,8 +43,14 @@
   color: $white;
 }
 
+.nav-btn-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .input-header {
-  width: 30rem;
+  width: 12rem;
   height: 2rem;
   padding: 0.7rem 1remrem;
   border-radius: $borderRadius;

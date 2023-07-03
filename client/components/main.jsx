@@ -12,7 +12,6 @@ const Main = (props) => {
     axios
       .get('http://localhost:3000/yelp')
       .then((response) => {
-        console.log(response.data.businesses);
         const rawData = response.data.businesses;
         setFetchedData(rawData);
       })

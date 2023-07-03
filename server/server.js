@@ -4,7 +4,6 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const axios = require('axios');
-const fetchInfo = require('../client/api');
 
 const userController = require('./controllers/userController');
 
