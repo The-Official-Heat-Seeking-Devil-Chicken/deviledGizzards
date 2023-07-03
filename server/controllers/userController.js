@@ -5,15 +5,20 @@ const UserController = {
   // Their information will be sent in the request body
   // This should send the created user
   createUser(req, res, next) {
-    const { firstName, lastName, password, username, zipcode } = req.body;
+    console.log('------entering create user controller----');
+    console.log('body: ', req.body);
+    const { first_name, last_name, password, username, zipcode } = req.body;
+    console.log(typeof firstName, typeof lastName);
+    console.log();
+
     const newUser = new User({
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       password,
       username,
-      zipcode,
+      zipcode: Number(zipcode),
     });
-
+    console.log('newUser', newUser);
     newUser
       .save()
       .then((savedDoc) => {
@@ -21,7 +26,11 @@ const UserController = {
         return next();
       })
       .catch((error) => {
-        next(res.status(400).json({ error: 'error in creating user' }));
+        return next({
+          log: 'error in create user',
+          status: 500,
+          message: 'user cannot be created, error in middleware',
+        });
       });
   },
   // get method for fetching user based off of username
