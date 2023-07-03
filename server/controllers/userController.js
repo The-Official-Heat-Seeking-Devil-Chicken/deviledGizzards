@@ -7,10 +7,13 @@ const UserController = {
   createUser(req, res, next) {
     console.log('------entering create user controller----');
     console.log('body: ', req.body);
-    const { firstName, lastName, password, username, zipcode } = req.body;
+    const { first_name, last_name, password, username, zipcode } = req.body;
+    console.log(typeof firstName, typeof lastName);
+    console.log();
+
     const newUser = new User({
-      first_name: firstName,
-      last_name: lastName,
+      first_name,
+      last_name,
       password,
       username,
       zipcode: Number(zipcode),
@@ -24,19 +27,22 @@ const UserController = {
       })
       .catch((error) => {
         return next({
-          log: "error in update student",
+          log: 'error in creating user',
           status: 500,
-          message: "Student name cannot be updated",
+          message: {
+            err: 'an error occured in createUser controller middleware',
+          },
         });
-      }
-      )
+      });
   },
   // get method for fetching user based off of username
   getUser(req, res, next) {
-    const { username } = req.params;
-    User.findOne({ username: name })
+    const { username, password } = req.body;
+    console.log(req.body);
+    User.findOne({ username: username })
       .then((user) => {
         // if doc is found
+        console.log('user', user);
         if (user) {
           res.locals.user = user;
           return next();

@@ -23,9 +23,10 @@ mongoose
   .catch((err) => console.log(err));
 
 // handle parsing request body
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+
 
 // allows us to store the cookie on our backend
 // app.use(cookieParser());
@@ -48,6 +49,10 @@ app.post('/signup', userController.createUser, (req, res) => {
   return res.status(200).json(res.locals.newUser);
 });
 
+app.post('/login', userController.getUser, (req, res) => {
+  // upon successful sign up
+  return res.status(200).json(res.locals.user);
+});
 // app.use('/dashboard', routenamevar);
 
 // Serve index.html for all routes
