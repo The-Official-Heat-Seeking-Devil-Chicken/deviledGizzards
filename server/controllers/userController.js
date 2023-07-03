@@ -27,18 +27,22 @@ const UserController = {
       })
       .catch((error) => {
         return next({
-          log: 'error in create user',
+          log: 'error in creating user',
           status: 500,
-          message: 'user cannot be created, error in middleware',
+          message: {
+            err: 'an error occured in createUser controller middleware',
+          },
         });
       });
   },
   // get method for fetching user based off of username
   getUser(req, res, next) {
-    const { username } = req.params;
-    User.findOne({ username: name })
+    const { username, password } = req.body;
+    console.log(req.body);
+    User.findOne({ username: username })
       .then((user) => {
         // if doc is found
+        console.log('user', user);
         if (user) {
           res.locals.user = user;
           return next();

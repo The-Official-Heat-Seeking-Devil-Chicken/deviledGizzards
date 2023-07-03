@@ -4,7 +4,6 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const axios = require('axios');
-const fetchInfo = require('../client/api');
 
 const userController = require('./controllers/userController');
 
@@ -24,9 +23,10 @@ mongoose
   .catch((err) => console.log(err));
 
 // handle parsing request body
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+
 
 // allows us to store the cookie on our backend
 // app.use(cookieParser());
@@ -38,20 +38,10 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
+//YELP API REQUEST
 // get request for yelp.
-// no controller used
-// configuration files for the api are in ./client/api.js file
-
-app.get('/yelp', (req, res) => {
-  axios
-    .get('https://api.yelp.com/v3/businesses/search', fetchInfo.config)
-    .then((response) => {
-      res.status(200).json(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+const yelpRouter = require('./routes/yelp');
+app.use('/yelp', yelpRouter);
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
@@ -59,6 +49,10 @@ app.post('/signup', userController.createUser, (req, res) => {
   return res.status(200).json(res.locals.newUser);
 });
 
+app.post('/login', userController.getUser, (req, res) => {
+  // upon successful sign up
+  return res.status(200).json(res.locals.user);
+});
 // app.use('/dashboard', routenamevar);
 
 // Serve index.html for all routes
