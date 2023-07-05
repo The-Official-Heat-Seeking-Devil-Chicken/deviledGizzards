@@ -1,13 +1,15 @@
+import { set } from 'mongoose';
 import React from 'react';
 import Header from './Header';
 import Main from './main';
-import './dashboard.scss';
+import './stylesheet.scss';
 
-function Dashboard() {
+function Dashboard({user, setUser}) {
+  const [fetchedData, setFetchedData] = useState([]);
   return (
     <div className='dashboard'>
-      <Header />
-      <Main />
+      <Header user={user} fetchedData={fetchedData} setFetchedData={setFetchedData}/>
+      <Main user={user} fetchedData={fetchedData} setFetchedData={setFetchedData}/>
     </div>
   );
 }
