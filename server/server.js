@@ -41,7 +41,10 @@ app.get('/', (req, res) => {
 
 //YELP API REQUEST
 // get request for yelp.
-app.use('/yelp', yelpRouter);
+app.use('/yelp', (req,res,next)=>{
+console.log('going to yelpRouter')
+return next()
+}, yelpRouter);
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {

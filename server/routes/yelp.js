@@ -8,7 +8,7 @@ router.get('/', yelpController.getData, (req, res) => {
 });
 
 //using req query here
-router.get('/search/', yelpController.searchData, (req, res) => {
+router.get('/search', yelpController.searchData, (req, res) => {
   console.log('inside the yelp router');
   //
   return res.status(200).json(res.locals.rawData);

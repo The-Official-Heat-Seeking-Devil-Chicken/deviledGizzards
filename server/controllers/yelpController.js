@@ -26,8 +26,7 @@ fetchInfo.config = {
     term: 'restaurants',
     location: location,
     radius: 1609,
-
-    limit: 20, //this may be what we change to restrict options on page
+    limit: 5, //this may be what we change to restrict options on page
   },
 };
 
@@ -48,8 +47,17 @@ yelpController.getData = (req, res, next) => {
 };
 
 yelpController.searchData = (req, res, next) => {
+  console.log('inside search data controller')
+  // console.log('fetchInfoConfig AFTER',{...fetchInfo.config, location: req.query.location, term: req.query.term})
+  console.log('req qry:', req.query)
+  const {  params} = fetchInfo.config;
+  params.location = req.query.location;
+  params.term = req.query.term;
+  console.log('config', fetchInfo.config);
+  console.log('params', params);
+  //add terms later
   axios
-    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config, location: req.query.location, term: req.query.term}) //location://req params/req query})
+    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config}) //location://req params/req query})
     .then((response) => {
       res.locals.rawData = response.data;
       return next();
