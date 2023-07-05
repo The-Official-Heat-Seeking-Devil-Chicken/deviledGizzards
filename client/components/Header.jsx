@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import './header.scss';
+import './stylesheet.scss';
 import axios from 'axios';
 
-const Header = () => {
+const Header = ({user, setUser, setFetchedData}) => {
   const [sendPreference, setSendPreference] = useState({
     term: '',
     location: '',
   });
-
+  // console.log(user)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('clicked');
     console.log(sendPreference);
     axios
-      .post('/yelp/search', sendPreference)
-      .then((response) => {
+      .get(`/yelp/search?term=${sendPreference.term}&location=${sendPreference.location}`)
+      .then((response) => {// update response
+        const rawData = response.data.businesses;
+        setFetchedData(rawData);
         console.log('data sent to server');
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => console.log(error));
   };
-
+// http://localhost:3000/user?name=Gourav&age=11, 
   return (
     <>
       <main className='header'>
@@ -53,8 +55,8 @@ const Header = () => {
         <div className='account-container'>
           <div className='profile-pic-plain-color'></div>
           <div className='account-name-container'>
-            <p className='account-name'>Dawit</p>
-            <p className='account-name'>Merid</p>
+            <p className='account-name'>{user.username}</p>
+            {/* <p className='account-name'>Merid</p> */}
           </div>
         </div>
       </main>
