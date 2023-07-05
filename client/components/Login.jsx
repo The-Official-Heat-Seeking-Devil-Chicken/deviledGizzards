@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.scss";
+// import "./login.scss";
+import "./stylesheet.scss";
 
-function Login() {
+function Login({user, setUser}) {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
@@ -28,12 +29,14 @@ function Login() {
       }),
     })
       .then((res) => {
+        console.log(res)
         return res.json();
       })
       .then((data) => {
         if (data.error) {
           alert("Wrong Username/Password")
         } else {
+          setUser(data)
           navigate("/home");
         }
       })
@@ -61,7 +64,7 @@ function Login() {
           placeholder="Password"
         />
         <button>Login</button>
-        <a href="/signup">SIGN UP</a>
+        <button onClick={() => {navigate('/signup')}}>SIGN UP</button>
       </form>
     </div>
   );

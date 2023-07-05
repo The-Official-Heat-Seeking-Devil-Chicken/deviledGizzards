@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import './main.scss';
+import './stylesheet.scss';
 import axios from 'axios';
 
-const Main = (props) => {
+const Main = ({user, setFetchedData, fetchedData}) => {
   // const {zipCode} = props
-
-  const [fetchedData, setFetchedData] = useState([]);
+  console.log(user.zipcode)
+  // const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/yelp')
+      .get('http://localhost:3000/yelp', 
+      { params: { location : user.zipcode}})
       .then((response) => {
         const rawData = response.data.businesses;
         setFetchedData(rawData);
