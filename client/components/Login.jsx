@@ -61,7 +61,7 @@ function Login() {
           placeholder="Password"
         />
         <button>Login</button>
-        <a href="/signup">SIGN UP</a>
+        <button onClick={()=>navigate("/signup")}>SIGN UP</button>
       </form>
     </div>
   );
