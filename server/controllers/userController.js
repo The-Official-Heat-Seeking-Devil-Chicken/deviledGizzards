@@ -5,11 +5,11 @@ const UserController = {
   // Their information will be sent in the request body
   // This should send the created user
   createUser(req, res, next) {
-    console.log('------entering create user controller----');
-    console.log('body: ', req.body);
+    // console.log('------entering create user controller----');
+    // console.log('body: ', req.body);
     const { first_name, last_name, password, username, zipcode } = req.body;
-    console.log(typeof firstName, typeof lastName);
-    console.log();
+    // console.log(typeof first_name, typeof last_name);
+    // console.log('password:', password);
 
     const newUser = new User({
       first_name,
@@ -18,7 +18,7 @@ const UserController = {
       username,
       zipcode: Number(zipcode),
     });
-    console.log('newUser', newUser);
+    // console.log('newUser', newUser);
     newUser
       .save()
       .then((savedDoc) => {
@@ -39,7 +39,7 @@ const UserController = {
   getUser(req, res, next) {
     const { username, password } = req.body;
     console.log(req.body);
-    User.findOne({ username: username })
+    User.findOne({ username: username, password: password })
       .then((user) => {
         // if doc is found
         console.log('user', user);
