@@ -10,7 +10,8 @@ const BEARER_TOKEN3 =
   '3fL-Z1zOIZnAWPYAVo462Sbf4R9ODxQ0CQXTW2KXAFRQeLuHyX38jrBGDIeplBuy04evgJvqVMj3zUhR1mFN2WzaxnyVRwvwboqceelX108pa3gL2jFOoyTXnj-fZHYx';
 
 // dummy zipCode
-const location = 20912;
+
+const location = 20912; //make default zip to be user's zipcode saved in db
 
 // config file for fetching from yelp
 // use the limit to adjust the number of restaurants displayed
@@ -25,14 +26,13 @@ fetchInfo.config = {
     term: 'restaurants',
     location: location,
     radius: 1609,
-
-    limit: 20,
+    limit: 5, //this may be what we change to restrict options on page
   },
 };
 
 yelpController.getData = (req, res, next) => {
   axios
-    .get('https://api.yelp.com/v3/businesses/search', fetchInfo.config)
+    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config,}) //location:req query})
     .then((response) => {
       res.locals.rawData = response.data;
       return next();
@@ -47,8 +47,28 @@ yelpController.getData = (req, res, next) => {
 };
 
 yelpController.searchData = (req, res, next) => {
-  console.log('entered search controller');
-  console.log(req.body);
+  console.log('inside search data controller')
+  // console.log('fetchInfoConfig AFTER',{...fetchInfo.config, location: req.query.location, term: req.query.term})
+  console.log('req qry:', req.query)
+  const {  params} = fetchInfo.config;
+  params.location = req.query.location;
+  params.term = req.query.term;
+  console.log('config', fetchInfo.config);
+  console.log('params', params);
+  //add terms later
+  axios
+    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config}) //location://req params/req query})
+    .then((response) => {
+      res.locals.rawData = response.data;
+      return next();
+    })
+    .catch((error) => {
+      //   console.log(err);
+      return next({
+        log: `Express error handler caught unknown middleware error: ERROR : ${error}`,
+        status: error.status || 400,
+      });
+    });
 };
 
 module.exports = yelpController;

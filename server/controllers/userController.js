@@ -25,7 +25,7 @@ const UserController = {
         res.locals.newUser = savedDoc;
         return next();
       })
-      .catch((error) => {
+      .catch((err) => {
         return next({
           log: 'error in creating user',
           status: 500,
@@ -38,7 +38,7 @@ const UserController = {
   // get method for fetching user based off of username
   getUser(req, res, next) {
     const { username, password } = req.body;
-    console.log(req.body);
+    console.log(req.body, 'logging in');
     User.findOne({ username: username, password: password })
       .then((user) => {
         // if doc is found
