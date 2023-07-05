@@ -3,7 +3,8 @@ import { Link, Outlet } from 'react-router-dom';
 import './stylesheet.scss';
 import axios from 'axios';
 
-const Header = ({user, setUser, setFetchedData}) => {
+
+const Header = ({user, setUser, setFetchedData, fetchedData}) => {
   const [sendPreference, setSendPreference] = useState({
     term: '',
     location: '',
@@ -12,12 +13,15 @@ const Header = ({user, setUser, setFetchedData}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('clicked');
-    console.log(sendPreference);
-    axios
-      .get(`/yelp/search?term=${sendPreference.term}&location=${sendPreference.location}`)
+    console.log('sendPref:', sendPreference);
+    axios///search?term=${sendPreference.term}&location=${sendPreference.location}
+      .get(`http://localhost:3000/yelp/search?term=${sendPreference.term}&location=${sendPreference.location}`)
       .then((response) => {// update response
         const rawData = response.data.businesses;
+        console.log('fetched data before setter: ',fetchedData)
+        // console.log(rawData);
         setFetchedData(rawData);
+        console.log('fetchedData after setter: ',fetchedData);
         console.log('data sent to server');
         // console.log(response.data);
       })
