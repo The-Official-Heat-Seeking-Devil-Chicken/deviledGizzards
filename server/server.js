@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const cors = require('cors');
+const cors = require('cors');//CORS
 const mongoose = require('mongoose');
 const axios = require('axios');
 
 const userController = require('./controllers/userController');
+const yelpRouter = require('./routes/yelp');
 
 // add route import
 // add model import
@@ -23,7 +24,7 @@ mongoose
   .catch((err) => console.log(err));
 
 // handle parsing request body
-app.use(cors());
+app.use(cors()); //CORS
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -40,24 +41,32 @@ app.get('/', (req, res) => {
 
 //YELP API REQUEST
 // get request for yelp.
-const yelpRouter = require('./routes/yelp');
 app.use('/yelp', yelpRouter);
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
   console.log('--entering post method for route--');
-  return res.status(200).json(res.locals.newUser);
+  return res.status(200).json(res.locals.newUser); 
 });
 
 app.post('/login', userController.getUser, (req, res) => {
   // upon successful sign up
   return res.status(200).json(res.locals.user);
 });
+
 // app.use('/dashboard', routenamevar);
 
-// Serve index.html for all routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+/**
+
+// catch-all route handler for any requests to an unknown route
+app.use('/*', (req, res) => res.sendStatus(404));
+
+ */
+
+//err 
+app.use('/*', (req, res) => {
+  // res.sendFile(path.join(__dirname, '../index.html'));
+  res.sendStatus(404);
 });
 
 /**
@@ -66,7 +75,7 @@ app.get('*', (req, res) => {
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
-    status: 500,
+    status: 400,
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);

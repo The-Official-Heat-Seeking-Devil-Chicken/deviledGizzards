@@ -14,7 +14,7 @@ const Header = () => {
     console.log('clicked');
     console.log(sendPreference);
     axios
-      .post('/yelp/search', sendPreference)
+      .post('/yelp/search', sendPreference) //get request?
       .then((response) => {
         console.log('data sent to server');
         console.log(response.data);
