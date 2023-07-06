@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./stylesheet.scss";
 
-function Signup(props) {
+function Signup({user, setUser, cookies, setCookie}) {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
   const URL = "http://localhost:3000/signup";
