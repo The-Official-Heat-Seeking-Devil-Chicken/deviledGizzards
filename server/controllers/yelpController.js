@@ -31,7 +31,8 @@ fetchInfo.config = {
 
 yelpController.getData = (req, res, next) => {
   const {  params } = fetchInfo.config;
-  params.location = req.query.location
+  params.location = req.query.location;
+  //params.limit = 20;
 
   axios
     .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config,}) 
