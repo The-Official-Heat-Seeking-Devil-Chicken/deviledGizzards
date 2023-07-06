@@ -34,7 +34,7 @@ function Login({user, setUser, cookies, setCookie}) {
         return res.json();
       })
       .then((data) => {
-        if (data.error) {
+        if (data.error.status === 404) {
           alert("Wrong Username/Password")
         } else {
           setUser(data)
