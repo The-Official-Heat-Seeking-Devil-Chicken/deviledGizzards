@@ -38,7 +38,8 @@ function Login({user, setUser, cookies, setCookie}) {
           alert("Wrong Username/Password")
         } else {
           setUser(data)
-          setCookie('user', data)
+          setCookie('user', data.username)
+          sessionStorage.setItem('user', data.username)
           console.log(cookies)
           navigate("/home");
         }

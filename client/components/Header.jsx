@@ -11,9 +11,10 @@ const Header = ({user, setUser, setFetchedData, fetchedData, cookies, setCookie,
     location: '',
   });
   const navigate = useNavigate()
-  // console.log(user)
+  const username = sessionStorage.getItem('user')
   const handleLogout = () => {
     navigate('/')
+    sessionStorage.removeItem('user')
     removeCookie('user')
   }
   const handleSubmit = (e) => {
@@ -65,7 +66,7 @@ const Header = ({user, setUser, setFetchedData, fetchedData, cookies, setCookie,
         <div className='account-container'>
           <div className='profile-pic-plain-color'></div>
           <div className='account-name-container'>
-            <p className='account-name'>{cookies.user.username}</p>
+            <p className='account-name'>{username}</p>
             <button onClick={handleLogout}>logout</button>
             {/* <p className='account-name'>Merid</p> */}
           </div>
