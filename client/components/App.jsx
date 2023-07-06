@@ -23,4 +23,19 @@ function App() {
   );
 }
 
+/*
+it('renders the signup page for the /signup route, () => {
+  const history = createMemoryHistory()
+  render(
+    <Router history={history}>
+      </Signup />
+    </Router>,
+  )
+
+render( 
+  <
+)
+
+})
+*/
 export default App;
