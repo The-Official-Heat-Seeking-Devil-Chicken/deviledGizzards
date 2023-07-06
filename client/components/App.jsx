@@ -5,15 +5,17 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Dashboard from './Dashboard.jsx';
 import './stylesheet.scss';
+import { useCookies } from 'react-cookie';
 
 function App() {
   const [user, setUser] = useState('testuser')
+  const [cookies, setCookie, removeCookie] = useCookies(['user'])
   return (
     <>
       <Routes>
-        <Route exact path='/' element={<Login user={user} setUser={setUser}/>}></Route>
-        <Route exact path='/signup' element={<Signup user={user} setUser={setUser}/>}></Route>
-        <Route exact path='/home' element={<Dashboard user={user} setUser={setUser}/>}></Route>
+        <Route exact path='/' element={<Login user={user} setUser={setUser} cookies={cookies} setCookie={setCookie}/>}></Route>
+        <Route exact path='/signup' element={<Signup user={user} setUser={setUser} cookies={cookies} setCookie={setCookie}/>}></Route>
+        <Route exact path='/home' element={<Dashboard user={user} setUser={setUser} cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}></Route>
       </Routes>
     </>
   );

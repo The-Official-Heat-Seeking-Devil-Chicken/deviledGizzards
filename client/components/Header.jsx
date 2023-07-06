@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import './stylesheet.scss';
 import axios from 'axios';
 
 
-const Header = ({user, setUser, setFetchedData, fetchedData}) => {
+const Header = ({user, setUser, setFetchedData, fetchedData, cookies, setCookie, removeCookie}) => {
   const [sendPreference, setSendPreference] = useState({
     term: '',
     location: '',
   });
+  const navigate = useNavigate()
   // console.log(user)
+  const handleLogout = () => {
+    navigate('/')
+    removeCookie('user')
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('clicked');
@@ -59,7 +65,8 @@ const Header = ({user, setUser, setFetchedData, fetchedData}) => {
         <div className='account-container'>
           <div className='profile-pic-plain-color'></div>
           <div className='account-name-container'>
-            <p className='account-name'>{user.username}</p>
+            <p className='account-name'>{cookies.user.username}</p>
+            <button onClick={handleLogout}>logout</button>
             {/* <p className='account-name'>Merid</p> */}
           </div>
         </div>
