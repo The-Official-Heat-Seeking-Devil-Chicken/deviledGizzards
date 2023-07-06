@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import './stylesheet.scss';
 import axios from 'axios';
+
 
 
 const Header = ({user, setUser, setFetchedData, fetchedData, cookies, setCookie, removeCookie}) => {
@@ -12,6 +13,11 @@ const Header = ({user, setUser, setFetchedData, fetchedData, cookies, setCookie,
   });
   const navigate = useNavigate()
   const username = sessionStorage.getItem('user')
+
+  useEffect(() => {
+    if(!cookies.user) navigate('/')
+  },[])
+
   const handleLogout = () => {
     navigate('/')
     sessionStorage.removeItem('user')

@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import './stylesheet.scss';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-const Main = ({user, setFetchedData, fetchedData}) => {
-  // const {zipCode} = props
-  console.log(user.zipcode)
-  // const [fetchedData, setFetchedData] = useState([]);
+const Main = ({user, setFetchedData, fetchedData, cookies}) => {
+
+  // const navigate = useNavigate()
+  // if(!cookies)
+  // {
+  //   console.log('no cookies!')
+  //   navigate('/')
+  // }
 
   useEffect(() => {
+    
     axios
       .get('http://localhost:3000/yelp', 
       { params: { location : user.zipcode}})

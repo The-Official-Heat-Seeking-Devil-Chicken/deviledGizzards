@@ -17,7 +17,7 @@ const location = 99999;
 // you can also change the term to another one to get any business
 fetchInfo.config = {
   headers: {
-    Authorization: `Bearer ${BEARER_TOKEN3}`,
+    Authorization: `Bearer ${BEARER_TOKEN2}`,
     Origin: 'localhost',
     withCredentials: true,
   },
