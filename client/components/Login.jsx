@@ -40,7 +40,6 @@ function Login({user, setUser, cookies, setCookie}) {
           setUser(data)
           setCookie('user', data.username)
           sessionStorage.setItem('user', data.username)
-          console.log(cookies)
           navigate("/home");
         }
       })
