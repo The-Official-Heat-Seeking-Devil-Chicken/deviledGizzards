@@ -3,14 +3,14 @@
  */
 
 const mongoose = require('mongoose');
-const { connectDB, dropDB, dropCollections } = require('./mock_db/setuptestdb');
-const User = require('../server/models/userModel');
+const { connectDB, dropDB, dropCollections } = require('./setuptestdb');
+const User = require('../../server/models/userModel');
 
 // import createUser and getUser functionality from userController middleware
 const {
   createUser,
   getUser,
-} = require('../server/controllers/userController.js');
+} = require('../../server/controllers/userController.js');
 
 // before any tests are run, connect to mock db
 beforeAll(async () => {
@@ -45,6 +45,10 @@ describe('User Model', () => {
   });
   it('should fail for invalidUsers', async () => {
     let invalidUser = {
+      // first_name: 123,
+      // last_name: ['McLovin'],
+      // password: { password: 'fire' },
+      // username: 'user123',
       zipcode: 'Angus',
     };
     try {
@@ -158,7 +162,15 @@ describe('UserController.getUser', () => {
     const res = { locals: { user: {} } };
     const idk = getUser(req, res, () => {
       return res.locals.user;
-    });
+    })
+    console.log(idk)
+    // await setTimeout(() => {
+    //   console.log('LINE 148', val);
+    //   console.log('LINE 148', res.locals.user);
+    // }, 1000);
+    // expect(res.locals.user).toBeDefined();
+    // expect(res.locals.user.first_name).toEqual(validUser.first_name);
+    // expect(res.locals.user.password).toEqual(req.password);
   });
   // these tests are crossed out until getUser is refactored to invoke global error handler in case user is not found
   xit('should invoke global error handler if User does not exist in db', async () => {

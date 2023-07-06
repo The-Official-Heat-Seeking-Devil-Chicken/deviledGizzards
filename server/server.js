@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const cors = require('cors');//CORS
+const cors = require('cors'); //CORS
 const mongoose = require('mongoose');
 const axios = require('axios');
+require('dotenv').config();
 
 const userController = require('./controllers/userController');
 const yelpRouter = require('./routes/yelp');
@@ -11,8 +12,9 @@ const yelpRouter = require('./routes/yelp');
 // add route import
 // add model import
 
-const dbUrl =
-  'mongodb+srv://sebastiansarm:1234@cluster0.at2e2ez.mongodb.net/?retryWrites=true&w=majority';
+const dbUrl = 
+// 'mongodb+srv://sebastiansarm:1234@cluster0.at2e2ez.mongodb.net/?retryWrites=true&w=majority';
+process.env.DB_URI;
 
 mongoose
   .connect(dbUrl, {
@@ -28,7 +30,6 @@ app.use(cors()); //CORS
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 // allows us to store the cookie on our backend
 // app.use(cookieParser());
 
@@ -41,15 +42,19 @@ app.get('/', (req, res) => {
 
 //YELP API REQUEST
 // get request for yelp.
-app.use('/yelp', (req,res,next)=>{
-console.log('going to yelpRouter')
-return next()
-}, yelpRouter);
+app.use(
+  '/yelp',
+  (req, res, next) => {
+    // console.log('going to yelpRouter');
+    return next();
+  },
+  yelpRouter
+);
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
   console.log('--entering post method for route--');
-  return res.status(200).json(res.locals.newUser); 
+  return res.status(200).json(res.locals.newUser);
 });
 
 app.post('/login', userController.getUser, (req, res) => {
@@ -66,7 +71,7 @@ app.use('/*', (req, res) => res.sendStatus(404));
 
  */
 
-//err 
+//err
 app.use('/*', (req, res) => {
   // res.sendFile(path.join(__dirname, '../index.html'));
   res.sendStatus(404);

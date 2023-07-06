@@ -38,11 +38,10 @@ const UserController = {
   // get method for fetching user based off of username
   getUser(req, res, next) {
     const { username, password } = req.body;
-    console.log(req.body, 'logging in');
+    // console.log(req.body, 'logging in');
     User.findOne({ username: username, password: password })
       .then((user) => {
         // if doc is found
-        console.log('user', user);
         if (user) {
           res.locals.user = user;
           return next();
