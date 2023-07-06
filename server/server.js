@@ -9,12 +9,8 @@ require('dotenv').config();
 const userController = require('./controllers/userController');
 const yelpRouter = require('./routes/yelp');
 
-// add route import
-// add model import
-
-const dbUrl = 
-// 'mongodb+srv://sebastiansarm:1234@cluster0.at2e2ez.mongodb.net/?retryWrites=true&w=majority';
-process.env.DB_URI;
+const dbUrl =
+  'mongodb+srv://sebastiansarm:1234@cluster0.at2e2ez.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose
   .connect(dbUrl, {
@@ -35,21 +31,14 @@ app.use(express.json());
 
 // statically serve everything in the build folder on the route '/build'
 app.use(express.static(path.join(__dirname, '../build')));
+
 // serve index.html on the route '/'
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
 //YELP API REQUEST
-// get request for yelp.
-app.use(
-  '/yelp',
-  (req, res, next) => {
-    // console.log('going to yelpRouter');
-    return next();
-  },
-  yelpRouter
-);
+app.use('/yelp', yelpRouter);
 
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
@@ -58,22 +47,13 @@ app.post('/signup', userController.createUser, (req, res) => {
 });
 
 app.post('/login', userController.getUser, (req, res) => {
-  // upon successful sign up
   return res.status(200).json(res.locals.user);
 });
 
 // app.use('/dashboard', routenamevar);
 
-/**
-
-// catch-all route handler for any requests to an unknown route
-app.use('/*', (req, res) => res.sendStatus(404));
-
- */
-
-//err
+//catch all route error handler
 app.use('/*', (req, res) => {
-  // res.sendFile(path.join(__dirname, '../index.html'));
   res.sendStatus(404);
 });
 

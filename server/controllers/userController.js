@@ -8,8 +8,7 @@ const UserController = {
     // console.log('------entering create user controller----');
     // console.log('body: ', req.body);
     const { first_name, last_name, password, username, zipcode } = req.body;
-    // console.log(typeof first_name, typeof last_name);
-    // console.log('password:', password);
+    // console.log(typeof firstName, typeof lastName);
 
     const newUser = new User({
       first_name,
@@ -27,30 +26,39 @@ const UserController = {
       })
       .catch((err) => {
         return next({
-          log: 'error in creating user',
+          log: `Express error handler caught ${err} in userController.createUser`,
           status: 500,
-          message: {
-            err: 'an error occured in createUser controller middleware',
-          },
+          message: { err: 'An error occurred' },
         });
       });
   },
+
   // get method for fetching user based off of username
   getUser(req, res, next) {
     const { username, password } = req.body;
     // console.log(req.body, 'logging in');
     User.findOne({ username: username, password: password })
       .then((user) => {
-        // if doc is found
+        console.log('user: ',user);
         if (user) {
           res.locals.user = user;
           return next();
         } else {
-          return res.status(400).json({ error: 'user not found' });
+          return next({
+            log: 'Express error handler caught error in userController.getUser', 
+            status: 404,
+            message: {err: 'User not found'}
+          })
+          
         }
       })
-      .catch((err) => {
-        return res.status(400).json({ error: 'failed to fetch user' });
+      .catch((error) => {
+        return next({
+          log: `Express error handler caught ${error} in userController.getUser`,
+          status: 404,
+          message: {err: 'An error occurred'}
+        })
+        
       });
   },
 };

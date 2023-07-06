@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie'
 // import "./login.scss";
 import "./stylesheet.scss";
 
-function Login({user, setUser}) {
+function Login({user, setUser, cookies, setCookie}) {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
@@ -33,10 +34,12 @@ function Login({user, setUser}) {
         return res.json();
       })
       .then((data) => {
-        if (data.error) {
+        if (data.error.status === 404) {
           alert("Wrong Username/Password")
         } else {
           setUser(data)
+          setCookie('user', data.username)
+          sessionStorage.setItem('user', data.username)
           navigate("/home");
         }
       })

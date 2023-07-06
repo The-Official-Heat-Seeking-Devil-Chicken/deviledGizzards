@@ -10,9 +10,8 @@ const BEARER_TOKEN2 =
 const BEARER_TOKEN3 =
   process.env.BEARER_TOKEN3;
 
-// dummy zipCode
 
-const location = 20912; //make default zip to be user's zipcode saved in db
+const location = 99999; 
 
 // config file for fetching from yelp
 // use the limit to adjust the number of restaurants displayed
@@ -27,47 +26,46 @@ fetchInfo.config = {
     term: 'restaurants',
     location: location,
     radius: 1609,
-    limit: 5, //this may be what we change to restrict options on page
+    limit: 20, 
   },
 };
 
 yelpController.getData = (req, res, next) => {
+  const {  params } = fetchInfo.config;
+  params.location = req.query.location
+
   axios
-    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config,}) //location:req query})
+    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config,}) 
     .then((response) => {
       res.locals.rawData = response.data;
       return next();
     })
-    .catch((error) => {
-      //   console.log(err);
+    .catch((err) => {
       return next({
-        log: `Express error handler caught unknown middleware error: ERROR : ${error}`,
-        status: error.status || 400,
+        log: `Express error handler caught {err} in yelpController.getData: ${err}`,
+        status: err.status || 400,
+        message: { err: 'An error occurred' }
       });
     });
 };
 
 yelpController.searchData = (req, res, next) => {
-  console.log('inside search data controller')
-  // console.log('fetchInfoConfig AFTER',{...fetchInfo.config, location: req.query.location, term: req.query.term})
-  console.log('req qry:', req.query)
-  const {  params} = fetchInfo.config;
+  const {  params } = fetchInfo.config;
   params.location = req.query.location;
   params.term = req.query.term;
-  console.log('config', fetchInfo.config);
-  console.log('params', params);
-  //add terms later
+  params.limit = 5;
+  
   axios
-    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config}) //location://req params/req query})
+    .get('https://api.yelp.com/v3/businesses/search', {...fetchInfo.config}) 
     .then((response) => {
       res.locals.rawData = response.data;
       return next();
     })
-    .catch((error) => {
-      //   console.log(err);
+    .catch((err) => {
       return next({
-        log: `Express error handler caught unknown middleware error: ERROR : ${error}`,
-        status: error.status || 400,
+        log: `Express error handler caught unknown middleware error in yelpController.searchData : ${err}`,
+        status: err.status || 400,
+        message: { err: 'An error occurred' }
       });
     });
 };
