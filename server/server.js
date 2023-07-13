@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const cors = require('cors');//CORS
+const cors = require('cors'); //CORS
 const mongoose = require('mongoose');
 const axios = require('axios');
+require('dotenv').config();
 
 const userController = require('./controllers/userController');
 const yelpRouter = require('./routes/yelp');
@@ -25,7 +26,6 @@ app.use(cors()); //CORS
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 // allows us to store the cookie on our backend
 // app.use(cookieParser());
 
@@ -43,7 +43,7 @@ app.use('/yelp', yelpRouter);
 // post method for user to db
 app.post('/signup', userController.createUser, (req, res) => {
   console.log('--entering post method for route--');
-  return res.status(200).json(res.locals.newUser); 
+  return res.status(200).json(res.locals.newUser);
 });
 
 app.post('/login', userController.getUser, (req, res) => {

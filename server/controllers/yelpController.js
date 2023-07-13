@@ -1,13 +1,14 @@
 const axios = require('axios');
 const yelpController = {};
+require('dotenv').config();
 
 const fetchInfo = {};
 
 const BEARER_TOKEN2 =
-  'CuFmwamx8ZGyAJq4-jmFkFSEo-yld8-BzkNXX8qLVHn5NTv9LUrq2lB13q5LhS9hKBdDGrB2Xcogn6e1PPR1s51YazYpOE9re3-PrcKv6us-stSyvzNhW1tVLWufZHYx';
+  process.env.BEARER_TOKEN2;
 
 const BEARER_TOKEN3 =
-  '3fL-Z1zOIZnAWPYAVo462Sbf4R9ODxQ0CQXTW2KXAFRQeLuHyX38jrBGDIeplBuy04evgJvqVMj3zUhR1mFN2WzaxnyVRwvwboqceelX108pa3gL2jFOoyTXnj-fZHYx';
+  process.env.BEARER_TOKEN3;
 
 
 const location = 99999; 
